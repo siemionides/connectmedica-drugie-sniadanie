@@ -4,6 +4,9 @@
     <string name="app_name">Otwarte zabytki</string>
     <string name="action_settings">Settings</string>
     <string name="action_info">Info</string>
+    
+    <string name="api_key">3mJdUhjaE67U7P8xUfXP</string>
+    <string name="api_url">http://otwartezabytki.pl/api/v1/</string>
 
     <!-- teksty do przetłumaczenia -->
     <string name="search_by_name">Wyszukaj po nazwie</string>
