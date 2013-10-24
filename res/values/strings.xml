@@ -12,5 +12,9 @@
     <string name="search_by_date_from">Od:</string>
     <string name="search_by_date_to">Do:</string>
     <string name="search_btn">Wyszukaj zabytków</string>
+    
+    <!-- wyniki wyszukiwania -->
+    <string name="search_list_label">Wyniki wyszukiwania</string>
+    
 
 </resources>
