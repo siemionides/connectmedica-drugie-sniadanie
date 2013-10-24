@@ -1,5 +1,7 @@
 package com.connectmedica.sniadanie;
 
+import com.androidquery.AQuery;
+
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 public class DetailsActivity extends ActionBarActivity {
 
+	private AQuery aq;
 	private ImageView mImageView;
 	private TextView mNameView;
 	private TextView mLocalizationView;
@@ -24,15 +27,24 @@ public class DetailsActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
 		
+		aq = new AQuery(this);
+		
 		mImageView = (ImageView) findViewById(R.id.image);
 		mNameView = (TextView) findViewById(R.id.name);
 		mLocalizationView = (TextView) findViewById(R.id.localization);
 		mDateView = (TextView) findViewById(R.id.date);
 		mDescriptionView = (TextView) findViewById(R.id.description);
 		
+		//TODO: zmienić adres url zdjęcia zabytku.
+		loadImage("adres url do obrazka");
+		
 		ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(false);
+	}
+	
+	private void loadImage(String url) {
+		aq.id(mImageView).image(url, false, false);
 	}
 
 	@Override
