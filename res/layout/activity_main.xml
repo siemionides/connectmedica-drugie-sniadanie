@@ -79,8 +79,8 @@
         android:id="@+id/search_btn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/ic_otwarte_zabytki"
         android:layout_margin="16dp"
+        android:background="@drawable/ic_otwarte_zabytki"
         android:text="@string/search_btn" />
 
 </LinearLayout>
