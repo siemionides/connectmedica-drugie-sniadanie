@@ -8,10 +8,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DetailsActivity extends ActionBarActivity {
 
+	private ImageView mImageView;
 	private TextView mNameView;
 	private TextView mLocalizationView;
 	private TextView mDateView;
@@ -22,6 +24,7 @@ public class DetailsActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
 		
+		mImageView = (ImageView) findViewById(R.id.image);
 		mNameView = (TextView) findViewById(R.id.name);
 		mLocalizationView = (TextView) findViewById(R.id.localization);
 		mDateView = (TextView) findViewById(R.id.date);
