@@ -4,7 +4,6 @@
     <string name="app_name">Otwarte zabytki</string>
     <string name="action_settings">Settings</string>
     <string name="action_info">Info</string>
-    
     <string name="api_key">3mJdUhjaE67U7P8xUfXP</string>
     <string name="api_url">http://otwartezabytki.pl/api/v1/</string>
 
@@ -15,9 +14,15 @@
     <string name="search_by_date_from">Od:</string>
     <string name="search_by_date_to">Do:</string>
     <string name="search_btn">Wyszukaj zabytków</string>
-    
+
     <!-- wyniki wyszukiwania -->
     <string name="search_list_label">Wyniki wyszukiwania</string>
     
+    <!-- szczegóły zabytku -->
+    <string name="title_activity_details">Szczegóły zabytku</string>
+    <string name="details_name">Nazwa zabytku:</string>
+    <string name="details_localization">Lokalizacja:</string>
+    <string name="details_date">Data powstania:</string>
+    <string name="details_description">Opis:</string>
 
 </resources>
