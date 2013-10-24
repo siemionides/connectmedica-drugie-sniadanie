@@ -3,10 +3,13 @@
 
     <string name="app_name">Otwarte zabytki</string>
     <string name="action_settings">Settings</string>
-    
+
     <!-- teksty do przetłumaczenia -->
     <string name="search_by_name">Wyszukaj po nazwie</string>
     <string name="search_by_place">Wyszukaj po miejscu</string>
-    
+    <string name="search_by_date">Wyszukaj po dacie</string>
+    <string name="search_by_date_from">Od:</string>
+    <string name="search_by_date_to">Do:</string>
+    <string name="search_btn">Wyszukaj zabytków</string>
 
 </resources>

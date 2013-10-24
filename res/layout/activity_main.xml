@@ -14,13 +14,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
         android:layout_marginTop="16dp"
-        android:text="Otwarte zabytki Android"
+        android:gravity="center"
+        android:text="@string/app_name"
         android:textSize="20sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wyszukaj po nazwie" />
+        android:text="@string/search_by_name" />
 
     <EditText
         android:id="@+id/name"
@@ -31,7 +32,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wyszukaj po miejscu" />
+        android:text="@string/search_by_place" />
 
     <EditText
         android:id="@+id/place"
@@ -42,7 +43,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wyszukaj po datach" />
+        android:text="@string/search_by_date" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,7 +53,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Od:" />
+            android:text="@string/search_by_date_from" />
 
         <EditText
             android:id="@+id/date_from"
@@ -64,7 +65,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Do:" />
+            android:text="@string/search_by_date_to" />
 
         <EditText
             android:id="@+id/date_to"
@@ -76,6 +77,10 @@
 
     <Button
         android:id="@+id/search_btn"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_otwarte_zabytki"
+        android:layout_margin="16dp"
+        android:text="@string/search_btn" />
 
 </LinearLayout>
