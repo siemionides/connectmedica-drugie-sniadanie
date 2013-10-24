@@ -1,9 +1,17 @@
 package com.connectmedica.sniadanie;
 
+import com.connectmedica.sniadanie.rest.OtwarteZabytkiClient;
+import com.connectmedica.sniadanie.rest.json.RelicJson;
+import com.connectmedica.sniadanie.rest.json.RelicJsonWrapper;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,9 +41,39 @@ public class MainActivity extends ActionBarActivity {
 
         mSearchBtn.setOnClickListener(new View.OnClickListener() {
 
+        	String relicName = mEditName.getText().toString();
+        	String relicPlace = mEditPlace.getText().toString();
+        	String relicDatingFrom = mEditDateFrom.getText().toString();
+        	String relicDatingTo = mEditDateTo.getText().toString();
+
+        	
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Tutaj będzie wyszukiwanie", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(MainActivity.this, "Tutaj b��dzie wyszukiwanie", Toast.LENGTH_SHORT).show();
+            	
+            	Callback<RelicJsonWrapper> cb = new Callback<RelicJsonWrapper>() {
+
+					@Override
+					public void failure(RetrofitError arg0) {
+						Log.d("connectmedica", "failure");
+						
+					}
+
+					@Override
+					public void success(RelicJsonWrapper arg0, Response arg1) {
+						Log.d("connectmedica", "success");
+						
+						Toast.makeText(getApplicationContext(), "Fetched " + arg0.relics.size() + " relics!", Toast.LENGTH_LONG).show();
+						
+						for (RelicJson relic : arg0.relics){
+							Log.d("zabytek", relic.toString());
+						}
+						
+						
+					}
+				};
+				
+				OtwarteZabytkiClient.getInstance().getSideEffects(relicPlace, relicName, relicDatingFrom, relicDatingTo, cb);
 
             }
         });
@@ -57,7 +95,7 @@ public class MainActivity extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.action_info:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Info").setMessage("Otwarte zabytki na śniadaniu z Connectmedica").create().show();
+                builder.setTitle("Info").setMessage("Otwarte zabytki na ��niadaniu z Connectmedica").create().show();
                 break;
 
             default:
