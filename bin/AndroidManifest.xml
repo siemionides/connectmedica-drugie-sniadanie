@@ -3,6 +3,7 @@
     package="com.connectmedica.sniadanie"
     android:versionCode="1"
     android:versionName="1.0" >
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -14,7 +15,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.connectmedica.sniadanie.MainActivity"
             android:label="@string/app_name" >
             
                 <intent-filter>
@@ -24,10 +25,18 @@
 
         </activity>
         <activity
-            android:name=".ResultListActivity"
+            android:name="com.connectmedica.sniadanie.ResultListActivity"
             android:label="@string/search_list_label" >
             
          
+        </activity>
+        <activity
+            android:name="com.connectmedica.sniadanie.DetailsActivity"
+            android:label="@string/title_activity_details"
+            android:parentActivityName="ResultListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ResultListActivity" />
         </activity>
     </application>
 
