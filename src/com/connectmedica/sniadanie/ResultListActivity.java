@@ -1,11 +1,14 @@
 package com.connectmedica.sniadanie;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import com.connectmedica.sniadanie.adapter.RelicAdapter;
 import com.connectmedica.sniadanie.rest.OtwarteZabytkiClient;
 import com.connectmedica.sniadanie.rest.json.PhotoJson;
 import com.connectmedica.sniadanie.rest.json.RelicJson;
@@ -86,13 +89,22 @@ public class ResultListActivity extends ActionBarActivity {
 				}
 				
 				
+		        /* STARY ADAPTER  
 		        ArrayAdapter<String> adapter = new ArrayAdapter<String>( ResultListActivity.this,
 		        		android.R.layout.simple_list_item_1, relicNames );
 		        initListView(adapter);
-				//initListView(monumentsArrayAdapter)
+				*/
+				//public static final Foo[] FOO = new Foo[]{};
+
+				//Foo[] foos = fooCollection.toArray(FOO);
 				
-				
-				
+				RelicJson[] DATA = new RelicJson[]{};
+				RelicJson[] data = arg0.relics.toArray(DATA);
+		        
+				// NOWY ADAPTER
+				RelicAdapter adapter = new RelicAdapter(ResultListActivity.this, 
+						R.layout.list_row, data);
+				initNewListView(adapter);
 				
 				
 			}
@@ -104,5 +116,10 @@ public class ResultListActivity extends ActionBarActivity {
     private void initListView(ArrayAdapter monumentsArrayAdapter) {
     	ListView monumentsList = (ListView) findViewById(R.id.listview);
     	monumentsList.setAdapter(monumentsArrayAdapter);
+    }
+    
+    private void initNewListView(RelicAdapter relicAdapter) {
+    	ListView monumentsList = (ListView) findViewById(R.id.listview);
+    	monumentsList.setAdapter(relicAdapter);
     }
 }

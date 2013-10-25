@@ -2,29 +2,28 @@ package com.connectmedica.sniadanie.adapter;
 
 import com.androidquery.AQuery;
 import com.connectmedica.sniadanie.R;
+import com.connectmedica.sniadanie.rest.json.RelicJson;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.ViewGroup;	
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MonumentAdapter extends ArrayAdapter<String> {
+public class RelicAdapter extends ArrayAdapter<RelicJson> {
 	
 	private AQuery aq;
 	private Context mContext;
-	private String[] mNames;
-	private String[] mImageUrls;
+	private RelicJson[] mData;
 	private int mRowResId;
 	
-	public MonumentAdapter(Context context, int rowResId, String[] names, String[] urls) {
-		super(context, rowResId, names);
+	public RelicAdapter(Context context, int rowResId, RelicJson[] data) {
+		super(context, rowResId, data);
 		mContext = context;
 		mRowResId = rowResId;
-		mNames = names;
-		mImageUrls = urls;
+		mData = data;
 		aq = new AQuery(mContext);
 	}
 	
@@ -35,12 +34,15 @@ public class MonumentAdapter extends ArrayAdapter<String> {
         View rowView = inflater.inflate(mRowResId, parent, false);
         
         ImageView image = (ImageView) rowView.findViewById(R.id.image);
-        TextView name = (TextView) rowView.findViewById(R.id.name);
+        TextView name = (TextView) rowView.findViewById(R.id.title);
 
-        aq.id(image).image(mImageUrls[position]);
-        name.setText(mNames[position]);
+        if (mData[position].photos.size() > 0)
+        	aq.id(image).image("http://otwartezabytki.pl/" + mData[position].photos.get(0).file.mini.url);
+        name.setText(mData[position].identification);
         
         return rowView;
 	}
+	
+	//BONUS: ViewHolder
 
 }
