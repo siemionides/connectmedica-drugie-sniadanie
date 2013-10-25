@@ -3,6 +3,7 @@ package com.connectmedica.sniadanie;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -23,10 +24,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class ResultListActivity extends ActionBarActivity {
 
+	private ProgressBar progressBar;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,8 @@ public class ResultListActivity extends ActionBarActivity {
         		"Zabytek 8",
 
         };
+        
+        progressBar = (ProgressBar) findViewById(R.id.progress);
         
         Bundle b = getIntent().getExtras();
         if(b != null)
@@ -68,12 +74,13 @@ public class ResultListActivity extends ActionBarActivity {
 			@Override
 			public void failure(RetrofitError arg0) {
 				Log.d("connectmedica", "failure");
-				
+				progressBar.setVisibility(View.GONE);
 			}
 
 			@Override
 			public void success(RelicJsonWrapper arg0, Response arg1) {
 				Log.d("connectmedica", "success");
+				progressBar.setVisibility(View.GONE);
 				
 				Toast.makeText(getApplicationContext(), "Fetched " + arg0.relics.size() + " relics!", Toast.LENGTH_LONG).show();
 				
@@ -99,13 +106,13 @@ public class ResultListActivity extends ActionBarActivity {
 		        initListView(adapter);
 				*/
 				
-				RelicJson[] DATA = new RelicJson[]{};
-				RelicJson[] data = arg0.relics.toArray(DATA);
+				//RelicJson[] DATA = new RelicJson[]{};
+				//RelicJson[] data = arg0.relics.toArray(DATA);
 		        
 				// NOWY ADAPTER
 				RelicAdapter adapter = new RelicAdapter(ResultListActivity.this, 
-						R.layout.list_row, data);
-				initNewListView(adapter, data);
+						R.layout.list_row, arg0.relics);
+				initNewListView(adapter, arg0.relics);
 				
 				
 			}
@@ -119,7 +126,7 @@ public class ResultListActivity extends ActionBarActivity {
     	monumentsList.setAdapter(monumentsArrayAdapter);
     }
     
-    private void initNewListView(RelicAdapter relicAdapter, final RelicJson[] data) {
+    private void initNewListView(RelicAdapter relicAdapter, final List<RelicJson> data) {
     	ListView relicsList = (ListView) findViewById(R.id.listview);
     	relicsList.setAdapter(relicAdapter);
     	relicsList.setOnItemClickListener(new OnItemClickListener() {
@@ -128,10 +135,10 @@ public class ResultListActivity extends ActionBarActivity {
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
 				Intent i = new Intent(ResultListActivity.this, DetailsActivity.class);
-				i.putExtra("image", "http://otwartezabytki.pl/" + data[position].photos.get(0).file.maxi.url);
-				i.putExtra(MainActivity.KEY_RELIC_NAME, data[position].identification);
-				i.putExtra(MainActivity.KEY_RELIC_PLACE, data[position].place_name);
-				i.putExtra(MainActivity.KEY_RELIC_FROM, data[position].dating_of_obj);
+				i.putExtra("image", "http://otwartezabytki.pl/" + data.get(position).photos.get(0).file.maxi.url);
+				i.putExtra(MainActivity.KEY_RELIC_NAME, data.get(position).identification);
+				i.putExtra(MainActivity.KEY_RELIC_PLACE, data.get(position).place_name);
+				i.putExtra(MainActivity.KEY_RELIC_FROM, data.get(position).dating_of_obj);
 				startActivity(i);
 			}
 		});
