@@ -14,9 +14,13 @@ import com.connectmedica.sniadanie.rest.json.PhotoJson;
 import com.connectmedica.sniadanie.rest.json.RelicJson;
 import com.connectmedica.sniadanie.rest.json.RelicJsonWrapper;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -94,9 +98,6 @@ public class ResultListActivity extends ActionBarActivity {
 		        		android.R.layout.simple_list_item_1, relicNames );
 		        initListView(adapter);
 				*/
-				//public static final Foo[] FOO = new Foo[]{};
-
-				//Foo[] foos = fooCollection.toArray(FOO);
 				
 				RelicJson[] DATA = new RelicJson[]{};
 				RelicJson[] data = arg0.relics.toArray(DATA);
@@ -104,7 +105,7 @@ public class ResultListActivity extends ActionBarActivity {
 				// NOWY ADAPTER
 				RelicAdapter adapter = new RelicAdapter(ResultListActivity.this, 
 						R.layout.list_row, data);
-				initNewListView(adapter);
+				initNewListView(adapter, data);
 				
 				
 			}
@@ -118,8 +119,21 @@ public class ResultListActivity extends ActionBarActivity {
     	monumentsList.setAdapter(monumentsArrayAdapter);
     }
     
-    private void initNewListView(RelicAdapter relicAdapter) {
-    	ListView monumentsList = (ListView) findViewById(R.id.listview);
-    	monumentsList.setAdapter(relicAdapter);
+    private void initNewListView(RelicAdapter relicAdapter, final RelicJson[] data) {
+    	ListView relicsList = (ListView) findViewById(R.id.listview);
+    	relicsList.setAdapter(relicAdapter);
+    	relicsList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				Intent i = new Intent(ResultListActivity.this, DetailsActivity.class);
+				i.putExtra("image", "http://otwartezabytki.pl/" + data[position].photos.get(0).file.maxi.url);
+				i.putExtra(MainActivity.KEY_RELIC_NAME, data[position].identification);
+				i.putExtra(MainActivity.KEY_RELIC_PLACE, data[position].place_name);
+				i.putExtra(MainActivity.KEY_RELIC_FROM, data[position].dating_of_obj);
+				startActivity(i);
+			}
+		});
     }
 }

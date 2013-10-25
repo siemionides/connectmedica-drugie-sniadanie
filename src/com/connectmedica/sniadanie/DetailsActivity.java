@@ -20,7 +20,6 @@ public class DetailsActivity extends ActionBarActivity {
 	private TextView mNameView;
 	private TextView mLocalizationView;
 	private TextView mDateView;
-	private TextView mDescriptionView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +32,25 @@ public class DetailsActivity extends ActionBarActivity {
 		mNameView = (TextView) findViewById(R.id.name);
 		mLocalizationView = (TextView) findViewById(R.id.localization);
 		mDateView = (TextView) findViewById(R.id.date);
-		mDescriptionView = (TextView) findViewById(R.id.description);
 		
-		//TODO: zmienić adres url zdjęcia zabytku.
-		loadImage("adres url do obrazka");
+		loadData();
 		
 		ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(false);
 	}
 	
-	private void loadImage(String url) {
-		aq.id(mImageView).image(url, false, false);
+	private void loadData() {
+		Bundle b = getIntent().getExtras();
+		String imageUrl = b.getString("image");
+		String name = b.getString(MainActivity.KEY_RELIC_NAME);
+		String place = b.getString(MainActivity.KEY_RELIC_PLACE);
+		String date = b.getString(MainActivity.KEY_RELIC_FROM);
+		
+		aq.id(mImageView).image(imageUrl, false, false);
+		mNameView.setText(name);
+		mLocalizationView.setText(place);
+		mDateView.setText(date);
 	}
 
 	@Override
