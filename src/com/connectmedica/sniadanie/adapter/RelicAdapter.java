@@ -2,7 +2,9 @@ package com.connectmedica.sniadanie.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.androidquery.AQuery;
+import com.connectmedica.sniadanie.R;
+import com.connectmedica.sniadanie.rest.json.RelicJson;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,20 +14,16 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.androidquery.AQuery;
-import com.connectmedica.sniadanie.R;
-import com.connectmedica.sniadanie.rest.json.RelicJson;
-
 public class RelicAdapter extends ArrayAdapter<RelicJson> {
 	
 	private AQuery aq;
 	private Context mContext;
-	private RelicJson[] mData, mFilterBaseData;
+	private List<RelicJson> mData, mFilterBaseData;
 	private int mRowResId;
 	
 	private Object mLock = new Object();
 	
-	public RelicAdapter(Context context, int rowResId, RelicJson[] data) {
+	public RelicAdapter(Context context, int rowResId, List<RelicJson> data) {
 		super(context, rowResId, data);
 		mContext = context;
 		mRowResId = rowResId;
@@ -39,7 +37,7 @@ public class RelicAdapter extends ArrayAdapter<RelicJson> {
             
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mData = (RelicJson[]) results.values;
+                mData = (List<RelicJson>) results.values;
                 RelicAdapter.this.notifyDataSetChanged();
             }
             
@@ -52,9 +50,8 @@ public class RelicAdapter extends ArrayAdapter<RelicJson> {
                     if (rj.identification.toLowerCase().contains(constraint.toString().toLowerCase()))
                         filteredList.add(rj);
                 }
-                RelicJson[] resArray = new RelicJson[]{};
                 FilterResults results = new FilterResults();
-                results.values = filteredList.toArray(resArray);
+                results.values = filteredList;
                 return results;
                 }
             }
@@ -64,7 +61,7 @@ public class RelicAdapter extends ArrayAdapter<RelicJson> {
 	@Override
 	public int getCount() {
 	    if (mData == null) return 0;
-	    return mData.length;
+	    return mData.size();
 	}
 	
 	@Override
@@ -76,13 +73,11 @@ public class RelicAdapter extends ArrayAdapter<RelicJson> {
         ImageView image = (ImageView) rowView.findViewById(R.id.image);
         TextView name = (TextView) rowView.findViewById(R.id.title);
 
-        if (mData[position].photos.size() > 0)
-        	aq.id(image).image("http://otwartezabytki.pl/" + mData[position].photos.get(0).file.mini.url);
-        name.setText(mData[position].identification);
+        if (mData.get(position).photos.size() > 0)
+        	aq.id(image).image("http://otwartezabytki.pl/" + mData.get(position).photos.get(0).file.mini.url).progress(R.id.progress);
+        name.setText(mData.get(position).identification);
         
         return rowView;
 	}
-	
-	//BONUS: ViewHolder
 
 }
