@@ -29,11 +29,7 @@
         </activity>
         <activity
             android:name="com.connectmedica.sniadanie.DetailsActivity"
-            android:label="@string/title_activity_details"
-            android:parentActivityName="ResultListActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="ResultListActivity" />
+            android:label="@string/title_activity_details" >
         </activity>
     </application>
 

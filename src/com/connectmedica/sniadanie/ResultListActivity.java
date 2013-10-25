@@ -45,8 +45,8 @@ public class ResultListActivity extends ActionBarActivity {
         };
         
         Bundle b = getIntent().getExtras();
-     
-        performApiQuery (b);
+        if(b != null)
+        	performApiQuery (b);
         
 
         

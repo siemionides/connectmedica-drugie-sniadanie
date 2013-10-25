@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
        	  		intent.putExtra(KEY_RELIC_FROM, relicDatingFrom);
        	  		intent.putExtra(KEY_RELIC_TO, relicDatingFrom);
  
-                 MainActivity.this.startActivity(intent);
+                MainActivity.this.startActivity(intent);
                  
             	
             	
