@@ -1,12 +1,16 @@
 package com.connectmedica.sniadanie.rest.json;
 
+import java.util.ArrayList;
+
 public class RelicJson {
 
-	int id;
-	String dating_of_obj;
-	String identification;
-	String description;
-	String place_name;
+	public int id;
+	public String dating_of_obj;
+	public String identification;
+	public String description;
+	public String place_name;
+	
+	public ArrayList<PhotoJson> photos;
 	
 	@Override
 	public String toString() {
@@ -27,7 +31,7 @@ public class RelicJson {
 //"state": "unchecked",
 //"register_number": "161 (167) z 18.11.1959",
 //"dating_of_obj": "1745-1761",
-//"street": "Rynek Kościuszki 10",
+//"street": "Rynek Ko��ciuszki 10",
 //"latitude": 53.1323752,
 //"longitude": 23.1586182,
 //"tags": [],
@@ -70,7 +74,7 @@ public class RelicJson {
 //"descendants": [],
 //"photos": [],
 //"place_id": 89547,
-//"place_name": "Białystok",
-//"commune_name": "Białystok",
-//"district_name": "Białystok",
+//"place_name": "Bia��ystok",
+//"commune_name": "Bia��ystok",
+//"district_name": "Bia��ystok",
 //"voivodeship_name": "podlaskie"

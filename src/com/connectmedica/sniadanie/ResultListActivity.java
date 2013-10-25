@@ -1,9 +1,22 @@
 package com.connectmedica.sniadanie;
 
+import java.util.ArrayList;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+import com.connectmedica.sniadanie.rest.OtwarteZabytkiClient;
+import com.connectmedica.sniadanie.rest.json.PhotoJson;
+import com.connectmedica.sniadanie.rest.json.RelicJson;
+import com.connectmedica.sniadanie.rest.json.RelicJsonWrapper;
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ResultListActivity extends ActionBarActivity {
 
@@ -24,10 +37,68 @@ public class ResultListActivity extends ActionBarActivity {
 
         };
         
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, fakeMonumentsList );
-        initListView(adapter);
+        Bundle b = getIntent().getExtras();
+     
+        performApiQuery (b);
+        
+
+        
+
         
         
+    }
+    
+    private void performApiQuery( Bundle b){
+    	
+        String relicName = b.getString(MainActivity.KEY_RELIC_NAME);
+        String relicPlace = b.getString(MainActivity.KEY_RELIC_PLACE);
+        String relicFrom = b.getString(MainActivity.KEY_RELIC_FROM);
+        String relicTo = b.getString(MainActivity.KEY_RELIC_TO);
+        
+        
+    	Callback<RelicJsonWrapper> cb = new Callback<RelicJsonWrapper>() {
+
+			@Override
+			public void failure(RetrofitError arg0) {
+				Log.d("connectmedica", "failure");
+				
+			}
+
+			@Override
+			public void success(RelicJsonWrapper arg0, Response arg1) {
+				Log.d("connectmedica", "success");
+				
+				Toast.makeText(getApplicationContext(), "Fetched " + arg0.relics.size() + " relics!", Toast.LENGTH_LONG).show();
+				
+				ArrayList<String> relicNames = new ArrayList<String>();
+				for (RelicJson relic : arg0.relics){
+//					Log.d("zabytek", relic.toString());
+					relicNames.add( relic.identification);
+					for (PhotoJson photo : relic.photos){
+						if (photo.file.maxi != null) Log.d("photo maxi ", photo.file.maxi.url);
+						if (photo.file.mini != null) Log.d("photo mini", photo.file.mini.url);
+						// dodaj do tego urla host http://otwartezabytki.pl/
+//						/system/uploads/photo/file/1010/icon_IMG_0627.JPG
+
+						
+
+					}
+				}
+				
+				
+		        ArrayAdapter<String> adapter = new ArrayAdapter<String>( ResultListActivity.this,
+		        		android.R.layout.simple_list_item_1, relicNames );
+		        initListView(adapter);
+				//initListView(monumentsArrayAdapter)
+				
+				
+				
+				
+				
+			}
+		};
+		
+		OtwarteZabytkiClient.getInstance().getSideEffects(relicPlace, relicName, relicFrom, relicTo, cb);
     }
     
     private void initListView(ArrayAdapter monumentsArrayAdapter) {

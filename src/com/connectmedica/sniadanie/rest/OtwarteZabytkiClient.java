@@ -34,7 +34,7 @@ public class OtwarteZabytkiClient {
 
     public void getSideEffects ( String place, String relicName, String from, String to, 
     		Callback<RelicJsonWrapper> cb){
-        api.getRelics(place, relicName, from, to, cb);
+        api.getRelics(place, relicName, from, to, true, cb);
     }
 
 

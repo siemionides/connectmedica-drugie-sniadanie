@@ -8,6 +8,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -26,6 +27,12 @@ public class MainActivity extends ActionBarActivity {
     private EditText mEditDateFrom;
     private EditText mEditDateTo;
     private Button   mSearchBtn;
+   
+    public final static String KEY_RELIC_NAME = "rName";
+    public final static String KEY_RELIC_PLACE = "rPlace";
+    public final static String KEY_RELIC_FROM = "rFrom";
+    public final static String KEY_RELIC_TO = "rTo";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,41 +46,30 @@ public class MainActivity extends ActionBarActivity {
 
         mSearchBtn = (Button) findViewById(R.id.search_btn);
 
-        mSearchBtn.setOnClickListener(new View.OnClickListener() {
-
-        	String relicName = mEditName.getText().toString();
-        	String relicPlace = mEditPlace.getText().toString();
-        	String relicDatingFrom = mEditDateFrom.getText().toString();
-        	String relicDatingTo = mEditDateTo.getText().toString();
-
+        mSearchBtn.setOnClickListener(new View.OnClickListener() {     	 
         	
             @Override
             public void onClick(View v) {
+            	
+               	String relicName = mEditName.getText().toString();
+            	String relicPlace = mEditPlace.getText().toString();
+            	String relicDatingFrom = mEditDateFrom.getText().toString();
+            	String relicDatingTo = mEditDateTo.getText().toString();
+            	
+            	Intent intent = new Intent(MainActivity.this, ResultListActivity.class);
+       	  		
+            	intent.putExtra(KEY_RELIC_NAME, relicName);
+       	  		intent.putExtra(KEY_RELIC_PLACE, relicPlace);
+       	  		intent.putExtra(KEY_RELIC_FROM, relicDatingFrom);
+       	  		intent.putExtra(KEY_RELIC_TO, relicDatingFrom);
+ 
+                 MainActivity.this.startActivity(intent);
+                 
+            	
+            	
                // Toast.makeText(MainActivity.this, "Tutaj b��dzie wyszukiwanie", Toast.LENGTH_SHORT).show();
             	
-            	Callback<RelicJsonWrapper> cb = new Callback<RelicJsonWrapper>() {
-
-					@Override
-					public void failure(RetrofitError arg0) {
-						Log.d("connectmedica", "failure");
-						
-					}
-
-					@Override
-					public void success(RelicJsonWrapper arg0, Response arg1) {
-						Log.d("connectmedica", "success");
-						
-						Toast.makeText(getApplicationContext(), "Fetched " + arg0.relics.size() + " relics!", Toast.LENGTH_LONG).show();
-						
-						for (RelicJson relic : arg0.relics){
-							Log.d("zabytek", relic.toString());
-						}
-						
-						
-					}
-				};
-				
-				OtwarteZabytkiClient.getInstance().getSideEffects(relicPlace, relicName, relicDatingFrom, relicDatingTo, cb);
+            	
 
             }
         });

@@ -10,7 +10,7 @@ public interface OtwarteZabytkiApi {
 
 	@GET("/relics.json")
     void getRelics(@Query("place") String place, @Query("query") String relicName, 
-    		@Query("from") String from,  @Query("to") String to,
+    		@Query("from") String from,  @Query("to") String to, @Query("has_photos") boolean hasPhotos,
     		Callback<RelicJsonWrapper> cb);
 
 }
