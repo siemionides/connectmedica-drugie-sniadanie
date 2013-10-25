@@ -91,7 +91,7 @@ public class MainActivity extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.action_info:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Info").setMessage("Otwarte zabytki na ��niadaniu z Connectmedica").create().show();
+                builder.setTitle("Info").setMessage(getResources().getString(R.string.info)).create().show();
                 break;
 
             default:

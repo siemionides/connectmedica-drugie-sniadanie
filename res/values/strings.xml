@@ -8,6 +8,7 @@
     <string name="api_url">http://otwartezabytki.pl/api/v1/</string>
 
     <!-- teksty do przetłumaczenia -->
+    <string name="info">Otwarte zabytki na śniadaniu z Connectmedica</string>
     <string name="search_by_name">Wyszukaj po nazwie</string>
     <string name="search_by_place">Wyszukaj po miejscu</string>
     <string name="search_by_date">Wyszukaj po dacie</string>
